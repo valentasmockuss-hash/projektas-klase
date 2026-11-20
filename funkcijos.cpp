@@ -119,33 +119,50 @@ size_t simboliuKiekis(const string& tekstas){
 void tekstoStulpelis(ostream& isvestis, const string& tekstas, size_t plotis) {
     isvestis<<tekstas<<string(plotis-simboliuKiekis(tekstas), ' ');
 }
-void spausdinti(const vector<Studentas>& studentai, ostream& isvestis, int budas){
-    size_t pavardesPlotis=16, vardoPlotis=16;
+void spausdinti(const vector<Studentas>& studentai,
+               ostream& isvestis, int budas) {
+    size_t pavardesPlotis = 16, vardoPlotis = 16;
 
-    for(const Studentas& s:studentai){
-        pavardesPlotis=max(pavardesPlotis, simboliuKiekis(s.pavarde)+2);
-        vardoPlotis=max(vardoPlotis, simboliuKiekis(s.vardas)+2);
+    for (const Studentas& s : studentai) {
+        pavardesPlotis = max(
+            pavardesPlotis,
+            simboliuKiekis(s.getPavarde()) + 2
+        );
+        vardoPlotis = max(
+            vardoPlotis,
+            simboliuKiekis(s.getVardas()) + 2
+        );
     }
+
     tekstoStulpelis(isvestis, "Pavarde", pavardesPlotis);
     tekstoStulpelis(isvestis, "Vardas", vardoPlotis);
-    isvestis<<left;
-    if(budas!=2) isvestis<<setw(20)<<"Galutinis (Vid.)";
-    if(budas!=1) isvestis<<setw(20)<<"Galutinis (Med.)";
-    size_t plotis=pavardesPlotis + vardoPlotis +(budas==3?40:20);
-    isvestis<< '\n'<<string(plotis, '-')<<'\n';
-    isvestis<<fixed<<setprecision(2);
+    isvestis << left;
 
-    for(const Studentas& s:studentai){
-        tekstoStulpelis(isvestis, s.pavarde, pavardesPlotis);
-        tekstoStulpelis(isvestis, s.vardas, vardoPlotis);
+    if (budas != 2) {
+        isvestis << setw(20) << "Galutinis (Vid.)";
+    }
+    if (budas != 1) {
+        isvestis << setw(20) << "Galutinis (Med.)";
+    }
+    size_t plotis = pavardesPlotis + vardoPlotis + (budas == 3 ? 40 : 20);
 
-        if(budas!=2){
-            isvestis<<setw(20)<<galutinis(vidurkis(s.nd), s.egzaminas);
+    isvestis << '\n' << string(plotis, '-') << '\n';
+    isvestis << fixed << setprecision(2);
+
+    for (const Studentas& s : studentai) {
+        tekstoStulpelis(isvestis, s.getPavarde(), pavardesPlotis);
+        tekstoStulpelis(isvestis, s.getVardas(), vardoPlotis);
+
+        if (budas != 2) {
+            isvestis << setw(20)<< galutinis(
+            vidurkis(s.getNd()),s.getEgzaminas());
         }
-        if(budas !=1){
-            isvestis<<setw(20)<<galutinis(mediana(s.nd), s.egzaminas);
+
+        if (budas != 1) {
+            isvestis << setw(20)<< galutinis(
+            mediana(s.getNd()),s.getEgzaminas());
         }
-        isvestis<<'\n';
+        isvestis << '\n';
     }
 }
 bool generuotiStudenta(vector<Studentas>& studentai, mt19937& generatorius){
@@ -327,8 +344,7 @@ bool irasytiGrupe(const vector<Studentas>& studentai, size_t nuo,
 
     for(size_t i=nuo; i<iki; ++i){
         const Studentas& s=studentai[i];
-
-        failas<<s.pavarde<<' '<<s.vardas<<' '<<studentoBalas(s, budas)<<'\n';
+        failas << s.getPavarde() << ' '<< s.getVardas() << ' '<< studentoBalas(s, budas) << '\n';
     }
     failas.close();
     return static_cast<bool>(failas);
@@ -346,7 +362,7 @@ bool irasytiGrupe(const vector<Studentas>& studentai, size_t nuo,
     for(const Studentas& s : studentai){
         if(i>=iki) break;
         if(i>=nuo){
-            failas<<s.pavarde<<' '<<s.vardas<<' '<<studentoBalas(s, budas)<<'\n';
+            failas << s.getPavarde() << ' '<< s.getVardas() << ' '<< studentoBalas(s, budas) << '\n';
         }
         ++i;
     }
