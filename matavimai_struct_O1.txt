@@ -1,0 +1,159 @@
+﻿
+1 - Ivesti studenta
+2 - Parodyti rezultatus
+3 - Generuoti studento pazymius
+4 - Skaityti faila (pakeicia studentu sarasa)
+5 - Issaugoti rezultatus faile
+6 - Generuoti studentu faila
+7 - Suskirstyti studentus ir issaugoti grupes
+8 - Atlikti spartos tyrima
+0 - Baigti
+Pasirinkimas: Tiriamo failo pavadinimas: 1 - vidurkis, 2 - mediana: 1 - vector, 2 - list: Strategija: 0 - v0.3, 1 - pirma, 2 - antra, 3 - trecia: 
+Bandymas 1 is 3
+Nuskaityta studentu:100000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai100000.txt
+Budas: vidurkis
+Bandymas: 1
+Studentu: 100000
+Vargsiuku: 41400
+Kietiaku: 58600
+Skaitymas: 0.539210 s
+Skirstymas: 0.004717 s
+Vargsiuku irasymas: 0.057811 s
+Kietiaku irasymas: 0.084630 s
+Bendras laikas: 0.686369 s
+
+Bandymas 2 is 3
+Nuskaityta studentu:100000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai100000.txt
+Budas: vidurkis
+Bandymas: 2
+Studentu: 100000
+Vargsiuku: 41400
+Kietiaku: 58600
+Skaitymas: 0.531095 s
+Skirstymas: 0.004600 s
+Vargsiuku irasymas: 0.057236 s
+Kietiaku irasymas: 0.080186 s
+Bendras laikas: 0.673118 s
+
+Bandymas 3 is 3
+Nuskaityta studentu:100000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai100000.txt
+Budas: vidurkis
+Bandymas: 3
+Studentu: 100000
+Vargsiuku: 41400
+Kietiaku: 58600
+Skaitymas: 0.503279 s
+Skirstymas: 0.004648 s
+Vargsiuku irasymas: 0.058411 s
+Kietiaku irasymas: 0.082445 s
+Bendras laikas: 0.648783 s
+
+Konteineris: vector
+Strategija: 0
+Failas: ../gen_studentai100000.txt
+triju bandymu vidurkiai (s):
+Skaitymas: 0.524528
+Skirstymas: 0.004655
+Vargsiuku irasymas: 0.057819
+Kietiaku irasymas: 0.082421
+Bendras laikas: 0.669423
+
+1 - Ivesti studenta
+2 - Parodyti rezultatus
+3 - Generuoti studento pazymius
+4 - Skaityti faila (pakeicia studentu sarasa)
+5 - Issaugoti rezultatus faile
+6 - Generuoti studentu faila
+7 - Suskirstyti studentus ir issaugoti grupes
+8 - Atlikti spartos tyrima
+0 - Baigti
+Pasirinkimas: Tiriamo failo pavadinimas: 1 - vidurkis, 2 - mediana: 1 - vector, 2 - list: Strategija: 0 - v0.3, 1 - pirma, 2 - antra, 3 - trecia: 
+Bandymas 1 is 3
+Nuskaityta studentu:1000000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai1000000.txt
+Budas: vidurkis
+Bandymas: 1
+Studentu: 1000000
+Vargsiuku: 413349
+Kietiaku: 586651
+Skaitymas: 5.176592 s
+Skirstymas: 0.046827 s
+Vargsiuku irasymas: 0.576876 s
+Kietiaku irasymas: 0.807174 s
+Bendras laikas: 6.607469 s
+
+Bandymas 2 is 3
+Nuskaityta studentu:1000000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai1000000.txt
+Budas: vidurkis
+Bandymas: 2
+Studentu: 1000000
+Vargsiuku: 413349
+Kietiaku: 586651
+Skaitymas: 5.051943 s
+Skirstymas: 0.046770 s
+Vargsiuku irasymas: 0.566266 s
+Kietiaku irasymas: 0.805068 s
+Bendras laikas: 6.470047 s
+
+Bandymas 3 is 3
+Nuskaityta studentu:1000000
+
+Konteineris: vector
+Strategija: 0
+
+Failas: ../gen_studentai1000000.txt
+Budas: vidurkis
+Bandymas: 3
+Studentu: 1000000
+Vargsiuku: 413349
+Kietiaku: 586651
+Skaitymas: 5.052108 s
+Skirstymas: 0.049411 s
+Vargsiuku irasymas: 0.565489 s
+Kietiaku irasymas: 0.811753 s
+Bendras laikas: 6.478762 s
+
+Konteineris: vector
+Strategija: 0
+Failas: ../gen_studentai1000000.txt
+triju bandymu vidurkiai (s):
+Skaitymas: 5.093548
+Skirstymas: 0.047669
+Vargsiuku irasymas: 0.569544
+Kietiaku irasymas: 0.807999
+Bendras laikas: 6.518759
+
+1 - Ivesti studenta
+2 - Parodyti rezultatus
+3 - Generuoti studento pazymius
+4 - Skaityti faila (pakeicia studentu sarasa)
+5 - Issaugoti rezultatus faile
+6 - Generuoti studentu faila
+7 - Suskirstyti studentus ir issaugoti grupes
+8 - Atlikti spartos tyrima
+0 - Baigti
+Pasirinkimas: 
