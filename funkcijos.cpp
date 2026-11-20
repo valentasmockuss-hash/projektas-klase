@@ -8,6 +8,7 @@
 #include <chrono>
 #include <list>
 #include <iterator>
+#include <utility>
 
 using namespace std;
 
@@ -66,40 +67,53 @@ double galutinis(double ndRezultatas, int egzaminas){
     return 0.4*ndRezultatas + 0.6*egzaminas;
 }
 template <typename Konteineris>
-bool ivestiStudentaBendrai(Konteineris& studentai){
-    Studentas studentas;
-    if(!ivestiVarda("Vardas: ", studentas.vardas)) return false;
-    if(!ivestiVarda("Pavarde: ", studentas.pavarde)) return false;
-    cout<<"Veskite po viena ND pazymi (0-10). Tuscia eilute baigia ivedima.\n";
+bool ivestiStudentaBendrai(Konteineris& studentai) {
+    string vardas, pavarde;
+    vector<int> nd;
 
+    if (!ivestiVarda("Vardas: ", vardas)) return false;
+    if (!ivestiVarda("Pavarde: ", pavarde)) return false;
+
+    cout << "Veskite po viena ND pazymi (0-10). Tuscia eilute baigia ivedima.\n";
     string eilute;
+
     while (true) {
-        cout<<"ND"<<studentas.nd.size() + 1<<": ";
+        cout << "ND" << nd.size() + 1 << ": ";
         if (!getline(cin, eilute)) return false;
-        if(eilute.find_first_not_of(" \t\r")==string::npos){
-            if(!studentas.nd.empty()) break;
-            cout<< "Reikia bent vieno namu darbo pazymio.\n";
+
+        if (eilute.find_first_not_of(" \t\r") == string::npos) {
+            if (!nd.empty()) break;
+            cout << "Reikia bent vieno namu darbo pazymio.\n";
             continue;
         }
         int pazymys;
-        if(sveikasSkaicius(eilute, pazymys) && pazymys>=0 && pazymys<=10){
-            studentas.nd.push_back(pazymys);
-        }else{
-            cout<<"Netinkamas pazymys. Iveskite sveikaji skaiciu nuo 0 iki 10.\n";
+        if (sveikasSkaicius(eilute, pazymys)
+            && pazymys >= 0 && pazymys <= 10) {
+            nd.push_back(pazymys);
+        } else {
+            cout << "Netinkamas pazymys. Iveskite sveikaji skaiciu nuo 0 iki 10.\n";
         }
     }
-    studentas.egzaminas=ivestiSkaiciu("Egzamino pazymys (0-10): ", 0, 10);
-    if(studentas.egzaminas==-1) return false;
+    int egzaminas = ivestiSkaiciu(
+        "Egzamino pazymys (0-10): ", 0, 10);
+    if (egzaminas == -1) return false;
+    studentai.emplace_back(
+        std::move(vardas),
+        std::move(pavarde),
+        std::move(nd),
+        egzaminas
+    );
+    const Studentas& irasytas = studentai.back();
 
-    studentai.push_back(studentas);
-    const Studentas& irasytas=studentai.back();
-
-    cout<<"Ivestas studentas: "<<irasytas.vardas<<" "<<irasytas.pavarde<<"\nND: ";
-    for (int pazymys : irasytas.nd) cout<<pazymys<<' ';
-    cout<<"\nEgzaminas: "<<irasytas.egzaminas<<"\nAdresas atmintyje: "<<&irasytas<<'\n';
+    cout << "Ivestas studentas: " << irasytas.getVardas()
+         << ' ' << irasytas.getPavarde() << "\nND: ";
+    for (int pazymys : irasytas.getNd()) {
+        cout << pazymys << ' ';
+    }
+    cout << "\nEgzaminas: " << irasytas.getEgzaminas()
+         << "\nAdresas atmintyje: " << &irasytas << '\n';
 
     return true;
-    
 }
 
 bool ivestiStudenta(vector<Studentas>& studentai){
