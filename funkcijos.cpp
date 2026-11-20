@@ -179,23 +179,39 @@ void spausdinti(const vector<Studentas>& studentai,
         isvestis << '\n';
     }
 }
-bool generuotiStudenta(vector<Studentas>& studentai, mt19937& generatorius){
-    Studentas studentas;
-    if (!ivestiVarda("Vardas: ", studentas.vardas)) return false;
-    if (!ivestiVarda("Pavarde: ", studentas.pavarde)) return false;
+bool generuotiStudenta(vector<Studentas>& studentai,
+                      mt19937& generatorius) {
+    string vardas, pavarde;
+    vector<int> nd;
 
-    int kiek=ivestiSkaiciu("Kiek ND pazymiu generuoti (1-1000)? ", 1, 1000);
-    if (kiek==-1) return false;
+    if (!ivestiVarda("Vardas: ", vardas)) return false;
+    if (!ivestiVarda("Pavarde: ", pavarde)) return false;
+
+    int kiek = ivestiSkaiciu(
+        "Kiek ND pazymiu generuoti (1-1000)? ", 1, 1000
+    );
+    if (kiek == -1) return false;
+
     uniform_int_distribution<int> pazymys(1, 10);
-    for (int i=0; i<kiek; ++i){
-        studentas.nd.push_back(pazymys(generatorius));
-    }
-    studentas.egzaminas=pazymys(generatorius);
-    cout<<"Sugeneruoti ND: ";
-    for (int nd:studentas.nd) cout<<nd<< ' ';
-    cout<<"\nEgzaminas: "<<studentas.egzaminas<<'\n';
 
-    studentai.push_back(studentas);
+    for (int i = 0; i < kiek; ++i) {
+        nd.push_back(pazymys(generatorius));
+    }
+    int egzaminas = pazymys(generatorius);
+
+    studentai.emplace_back(
+        std::move(vardas),
+        std::move(pavarde),
+        std::move(nd),
+        egzaminas
+    );
+    const Studentas& irasytas = studentai.back();
+
+    cout << "Sugeneruoti ND: ";
+    for (int balas : irasytas.getNd()) {cout << balas << ' ';}
+
+    cout << "\nEgzaminas: " << irasytas.getEgzaminas() << '\n';
+
     return true;
 }
 template <typename Konteineris>
@@ -224,29 +240,46 @@ bool skaitytiFailaBendrai(const string& kelias, Konteineris& studentai){
     }
     Konteineris nuskaityti;
     size_t numeris=1;
-    while (getline(failas, eilute)) {
+        while (getline(failas, eilute)) {
         ++numeris;
-        if (eilute.find_first_not_of(" \t\r")==string::npos) continue;
-        istringstream srautas(eilute);
-        Studentas s;
-        bool tinkama=static_cast<bool>(srautas>>s.vardas>>s.pavarde);
-        if(pavardePirma) swap(s.vardas, s.pavarde);
 
-        while(srautas>>zodis){
+        if (eilute.find_first_not_of(" \t\r") == string::npos) {
+            continue;
+        }
+
+        istringstream srautas(eilute);
+        string vardas, pavarde;
+        vector<int> nd;
+
+        bool tinkama = static_cast<bool>(
+            srautas >> vardas >> pavarde
+        );
+        if (pavardePirma) swap(vardas, pavarde);
+
+        while (srautas >> zodis) {
             int pazymys;
-            if(!sveikasSkaicius(zodis, pazymys)||pazymys<0||pazymys>10){
-                tinkama=false;
+
+            if (!sveikasSkaicius(zodis, pazymys)
+                || pazymys < 0 || pazymys > 10) {
+                tinkama = false;
                 break;
             }
-            s.nd.push_back(pazymys);
+            nd.push_back(pazymys);
         }
-        if (!tinkama||s.nd.size() != antraste.size() - 2){
-            cout<<"Netinkami duomenys eiluteje"<<numeris<<".\n";
+        if (!tinkama || nd.size() != antraste.size() - 2) {
+            cout << "Netinkami duomenys eiluteje "
+                 << numeris << ".\n";
             return false;
         }
-        s.egzaminas=s.nd.back();
-        s.nd.pop_back();
-        nuskaityti.push_back(s);
+        int egzaminas = nd.back();
+        nd.pop_back();
+
+        nuskaityti.emplace_back(
+            std::move(vardas),
+            std::move(pavarde),
+            std::move(nd),
+            egzaminas
+        );
     }
     if (!failas.eof() || nuskaityti.empty()){
         cout<<"Failas tuscias arba jo nuskaityti nepavyko.\n";
