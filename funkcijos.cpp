@@ -233,13 +233,18 @@ bool skaitytiFaila(const string&kelias, list<Studentas>& studentai){
     return skaitytiFailaBendrai(kelias, studentai);
 }
 
-bool pagalPavarde(const Studentas& a, const Studentas& b){
-    if (a.pavarde==b.pavarde) return a.vardas<b.vardas;
-    return a.pavarde<b.pavarde;
+bool pagalPavarde(const Studentas& a, const Studentas& b) {
+    if (a.getPavarde() == b.getPavarde()) {
+        return a.getVardas() < b.getVardas();
+    }
+    return a.getPavarde() < b.getPavarde();
 }
-bool pagalVarda(const Studentas& a, const Studentas& b){
-    if (a.vardas==b.vardas) return a.pavarde<b.pavarde;
-    return a.vardas<b.vardas;
+
+bool pagalVarda(const Studentas& a, const Studentas& b) {
+    if (a.getVardas() == b.getVardas()) {
+        return a.getPavarde() < b.getPavarde();
+    }
+    return a.getVardas() < b.getVardas();
 }
 
 bool generuotiFaila(int kiek, mt19937&generatorius) {
@@ -290,9 +295,11 @@ bool generuotiFaila(int kiek, mt19937&generatorius) {
     return true;
 }
 
-double studentoBalas(const Studentas& s, int budas){
-    double ndBalas=(budas==1) ? vidurkis(s.nd) : mediana(s.nd);
-    return galutinis(ndBalas, s.egzaminas);
+double studentoBalas(const Studentas& s, int budas) {
+    double ndBalas = (budas == 1)
+        ? vidurkis(s.getNd())
+        : mediana(s.getNd());
+    return galutinis(ndBalas, s.getEgzaminas());
 }
 
 size_t skirstytiStudentus(vector<Studentas>& studentai, int budas) {
