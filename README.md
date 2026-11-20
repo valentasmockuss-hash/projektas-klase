@@ -1,3 +1,117 @@
+STUDENTU PAZYMIU APDOROJIMAS 1.1
+
+KAS PAKEISTA 1.1
+
+Ankstesnė `Studentas` struktūra pakeista klase.
+
+Vardas, pavardė, namų darbai ir egzaminas laikomi privačiuose laukuose.
+Duomenys perskaitomi per `getVardas()`, `getPavarde()`, `getNd()` ir `getEgzaminas()`.
+Realizuotas numatytasis konstruktorius ir konstruktorius su duomenimis.
+Kopijavimo, perkėlimo operacijos ir destruktorius apibrėžti naudojant `= default`.
+`string` ir `vector` patys atlaisvina savo valdomą atmintį.
+Įvedimas, generavimas ir failų skaitymas studentus sukuria per konstruktorių naudodami `emplace_back`.
+Išliko `vector`, `list` ir ankstesnės skirstymo strategijos.
+
+
+KOMPILIAVIMAS IR PALEIDIMAS
+
+Reikalingas C++17 palaikantis g++
+
+Projekto aplanke, windows powershell terminale:
+
+g++ -std=c++17 -O2 -Wall -Wextra -Wpedantic v0.1_projektas.cpp funkcijos.cpp -o studentai.exe
+.\studentai.exe
+
+Kompiliavimas ir įdiegimas su CMake:
+
+powershell
+cmake -S . -B build -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+cmake --install build --prefix "$PWD/diegimas"
+.\diegimas\bin\studentai.exe
+
+CMake būdu taip pat reikalingas mingw32-make
+
+STRUCT IR KLASES SPARTOS PALYGINIMAS:
+
+Tyrimo sąlygos:
+
+
+Failų dydžiai: 100 000 ir 1 000 000 studentų.
+Konteineris: `vector`.
+Galutinis balas skaičiuojamas pagal namų darbų vidurkį.
+Skirstymas: strategija `0`, naudojanti `std::partition`.
+Strategija pasirinkta pagal ankstesnių `vector` skirstymo matavimų rezultatus.
+Optimizavimo lygiai: `-O1`, `-O2`, `-O3`.
+Kiekvienas derinys išbandytas tris kartus, prieš kiekvieną bandymą failas nuskaitomas iš naujo.
+Lentelėse pateikiami trijų bandymų aritmetiniai vidurkiai sekundėmis.
+Bendras laikas apima skaitymą, skirstymą ir abiejų grupių įrašymą į failus.
+
+BENDRAS VYKDYMO LAIKAS:
+
+| Studentų skaičius | Optimizavimas | Struct, s | Klasė, s |
+|---:|:---:|---:|---:|
+| 100 000 | O1 | 0.669423 | 0.743002 |
+| 100 000 | O2 | 0.687331 | 1.062982 |
+| 100 000 | O3 | 0.678838 | 0.719503 |
+| 1 000 000 | O1 | 6.518759 | 6.618075 |
+| 1 000 000 | O2 | 6.437180 | 7.065308 |
+| 1 000 000 | O3 | 6.493816 | 6.498690 |
+
+STUDENTU SKIRSTYMO LAIKAS:
+
+| Studentų skaičius | Optimizavimas | Struct, s | Klasė, s |
+|---:|:---:|---:|---:|
+| 100 000 | O1 | 0.004655 | 0.006839 |
+| 100 000 | O2 | 0.005768 | 0.009003 |
+| 100 000 | O3 | 0.005311 | 0.007411 |
+| 1 000 000 | O1 | 0.047669 | 0.049680 |
+| 1 000 000 | O2 | 0.048369 | 0.054540 |
+| 1 000 000 | O3 | 0.045392 | 0.049258 |
+
+VYKDOMUJU FAILU DYDZIAI:
+
+Dydžiai pateikti baitais
+
+| Optimizavimas | Struct EXE, baitais | Klasės EXE, baitais |
+|:---:|---:|---:|
+| O1 | 282587 | 290851 |
+| O2 | 261183 | 265590 |
+| O3 | 290693 | 296115 |
+
+IŠVADOS:
+
+Šiuose bandymuose klasės versija buvo lėtesnė už struct versiją, tačiau skirtumas priklausė nuo optimizavimo lygio ir failo dydžio.
+
+Su milijonu studentų ir O3 bendras vykdymo laikas beveik sutapo: struct versijos 6.493816s, klasės 6.498690s.
+
+Klasės versija abiem failų dydžiams mažiausią bendrą laiką pasiekė su O3. Struct versijai su milijonu studentų greičiausias buvo O2.
+
+O2 klasės bandymuose užfiksuotas ilgesnis skaitymas. 100 000 studentų skaitymas vidutiniškai truko 0.890679s, o struct versijoje — 0.528752s. 
+
+Mažiausi EXE failai abiem realizacijoms gauti naudojant O2.
+
+MATAVIMU FAILAI:
+
+`matavimai_struct_O1.txt`
+`matavimai_struct_O2.txt`
+`matavimai_struct_O3.txt`
+`matavimai_klase_O1.txt`
+`matavimai_klase_O2.txt`
+`matavimai_klase_O3.txt`
+`dydziai_struct.txt`
+`dydziai_klase.txt`
+
+Struct matavimų versija: commit `baf413e`.
+Klasės matavimų versija: commit `8f3f90f`.
+
+
+
+
+
+
+
+
 STUDENTŲ GALUTINIO BALO SKAIČIAVIMAS
 
 C++17 programa studentų pažymiams apdoroti, studentams suskirstyti į grupes ir skirtingų skirstymo strategijų spartai palyginti.
