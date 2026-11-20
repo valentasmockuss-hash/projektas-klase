@@ -5,35 +5,44 @@
 #include <vector>
 #include <utility>
 
-struct Studentas {
-    std::string vardas;
-    std::string pavarde;
-    std::vector<int> nd;
-    int egzaminas = 0;
+class Studentas {
+private:
+    std::string vardas_;
+    std::string pavarde_;
+    std::vector<int> nd_;
+    int egzaminas_ = 0;
 
-        Studentas() = default;
+public:
+    Studentas() = default;
 
-    Studentas(std::string naujasVardas,
-              std::string naujaPavarde,
-              std::vector<int> naujiNd,
-              int naujasEgzaminas):
-          vardas(std::move(naujasVardas)),
-          pavarde(std::move(naujaPavarde)),
-          nd(std::move(naujiNd)),
-          egzaminas(naujasEgzaminas) {}
+    Studentas(std::string vardas,
+              std::string pavarde,
+              std::vector<int> nd,
+              int egzaminas)
+        : vardas_(std::move(vardas)),
+          pavarde_(std::move(pavarde)),
+          nd_(std::move(nd)),
+          egzaminas_(egzaminas) {}
 
+    Studentas(const Studentas&) = default;
+    Studentas& operator=(const Studentas&) = default;
+
+    Studentas(Studentas&&) noexcept = default;
+    Studentas& operator=(Studentas&&) noexcept = default;
+
+    ~Studentas() = default;
+    
     const std::string& getVardas() const {
-        return vardas;
+        return vardas_;
     }
     const std::string& getPavarde() const {
-        return pavarde;
+        return pavarde_;
     }
     const std::vector<int>& getNd() const {
-        return nd;
+        return nd_;
     }
     int getEgzaminas() const {
-        return egzaminas;
+        return egzaminas_;
     }
 };
-
 #endif
