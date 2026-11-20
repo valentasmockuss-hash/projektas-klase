@@ -1,0 +1,8 @@
+﻿
+Name         Length
+----         ------
+klase_O1.exe 290851
+klase_O2.exe 265590
+klase_O3.exe 296115
+
+
